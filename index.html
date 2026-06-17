@@ -11033,7 +11033,11 @@
       clue = "Period: " + elementData.period;
       activeFilters.period = elementData.period;
     } else if (count === 4) {
-      clue = "Ionization energies: " + element.ionization_energies;
+      if (ionization_energies == "") {
+        clue = "No ionization energies";
+      } else {
+        clue = "Ionization energies: " + element.ionization_energies;
+      }
     } else if (count === 5) {
       clue = "Boiling point: " + elementData.boil;
     } else if (count === 6) {
