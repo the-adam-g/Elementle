@@ -2,12 +2,10 @@ body {
   background: #101318;
   text-shadow: 0 0 0.4vw currentColor; 
 }
-h1, p, a {
+h1, p, a, ul, li {
     color: white !important;
     text-shadow: 0 0 0.0vw currentColor;
 }
-
-/* Clue-based elimination blackout */
 .element.clue-eliminated {
   opacity: 0.12;
   filter: grayscale(100%) brightness(0.3);
@@ -19,7 +17,6 @@ h1, p, a {
   border-color: #1a1d22 !important;
   color: #333 !important;
 }
-/* Keep non-eliminated elements bright */
 .element:not(.clue-eliminated) {
   transition: opacity 600ms ease, filter 600ms ease;
 }
