@@ -4,7 +4,7 @@
 </head>
 <body>
   <h1>Elementle!</h1>
-  <p>Version - 1 (Lithium)</p>
+  <p>Version - 1.1 (Lithium)</p>
   <hr>
   <div style="display: flex;">
     <h1 style="margin-right: 10px;">Guesses: </h1>
@@ -54,9 +54,14 @@
       clue = "Category: " + elementData.category;
     } else if (count === 2) {
       clue = "Period: " + elementData.period;
-    } else if (count >= 3) {
-      clue = "Discovered by: " + elementData.discovered_by;
+    } else if (count === 3) {
+      clue = "Boiling point: " + elementData.boil;
+    } else if (count === 4) {
+      clue = "Phase: " + elementData.phase;
+    } else if (count >= 5) {
+      clue = "Appearance: " + elementData.appearance;
     }
+    
 
     if (clue) {
       clues.push(clue);
