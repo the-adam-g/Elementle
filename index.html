@@ -11033,11 +11033,13 @@
       clue = "Period: " + elementData.period;
       activeFilters.period = elementData.period;
     } else if (count === 4) {
-      clue = "Boiling point: " + elementData.boil;
+      clue = "Ionization energies: " + element.ionization_energies;
     } else if (count === 5) {
+      clue = "Boiling point: " + elementData.boil;
+    } else if (count === 6) {
       clue = "Phase: " + elementData.phase;
       activeFilters.phase = elementData.phase;
-    } else if (count >= 6) {
+    } else if (count === 7) {
       clue = "Appearance: " + elementData.appearance;
     }
     
