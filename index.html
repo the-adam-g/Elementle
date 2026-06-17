@@ -5,7 +5,7 @@
 </head>
 <body>
   <h1>Elementle!</h1>
-  <p>Version - 2.5 (Sodium)</p>
+  <p>Version - 2.4 (Sodium)</p>
   <hr>
   <h1>Credits</h1>
   <p><a href="https://github.com/the-adam-g/">Adam Gillion</a> - Developer of Elementle</p>
@@ -11037,10 +11037,10 @@
       clue = "Period: " + elementData.period;
       activeFilters.period = elementData.period;
     } else if (count === 4) {
-      if (!elementData.ionization_energies || elementData.ionization_energies.length === 0) {
+      if (ionization_energies == "") {
         clue = "No ionization energies";
       } else {
-        clue = "Ionization energies: " + elementData.ionization_energies;
+        clue = "Ionization energies: " + element.ionization_energies;
       }
     } else if (count === 5) {
       clue = "Boiling point: " + elementData.boil;
@@ -11052,10 +11052,11 @@
     }
     
     applyBlackouts();
+
     if (clue) {
       clues.push(clue);
       document.getElementById("clues").innerHTML = clues.join("<br>");
     }
   }
 
-</script>
+</script>   
