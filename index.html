@@ -10962,13 +10962,17 @@
   const rand = Math.floor(Math.random() * jsonData.elements.length);
   const answer = jsonData.elements[rand].name;
   function checkGuess(userGuess) {
+    const input = document.getElementById('guessbox');
+    input.addEventListener('input', (e) => {
+      input.value = '';
+    });   
     if (userGuess.toLowerCase() === answer.toLowerCase()) {
       alert("You win! The element was " + answer);
     } else {
       guesses = guesses + 1;
       document.getElementById("guesses").innerHTML = guesses;
       revealClue(guesses);
-      tried.push("<li>" + userGuess.replace(/,/g, '') + "</li>");
+      tried.push("<li>" + userGuess.replaceAll(',', '') + "</li>");
       document.getElementById("tried").innerHTML = tried;
     }
   }
