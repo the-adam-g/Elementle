@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<head>
+  <title>Elementle - Guess the chemical element</title>
+</head>
+<body>
+  <h1>Elementle!</h1>
+  <p>Version - 1 (Lithium)</p>
+  <hr>
+  <div style="display: flex;">
+    <h1 style="margin-right: 10px;">Guesses: </h1>
+    <h1 id="guesses">0</h1>
+  </div>
+  <p id="demo"></p>
+  <p><b>Clues:</b></p>
+  <p id="clues"></p>
+  <p><b>Guessed elements:</b></p>
+  <ul>
+    <div id="tried"></div>
+  </ul>
+  <input type="text" id="guessbox" placeholder="Enter element name">
+  <button onclick="checkGuess(document.getElementById('guessbox').value)">Guess</button>
+  <hr>
+  <h1>Credits</h1>
+  <p><a href="https://github.com/the-adam-g/">Adam Gillion</a> - Developer of Elementle</p>
+  <p><a href="https://github.com/Bowserinator">Bowserinator</a> - Created the JSON element file used for the site</p>
+</body>
+<script type="module">
+  import jsonData from './elements.json' with { type: 'json' };
+  let guesses = 0;
+  const clues = [];
+  const tried = [];
+  const rand = Math.floor(Math.random() * jsonData.elements.length);
+  const answer = jsonData.elements[rand].name;
+  function checkGuess(userGuess) {
+    if (userGuess.toLowerCase() === answer.toLowerCase()) {
+      alert("You win! The element was " + answer);
+    } else {
+      guesses = guesses + 1;
+      document.getElementById("guesses").innerHTML = guesses;
+      revealClue(guesses);
+      tried.push("<li>" + userGuess + "</li>");
+      document.getElementById("tried").innerHTML = tried;
+    }
+  }
+
+  window.checkGuess = checkGuess; 
+
+  function revealClue(count) {
+    const elementData = jsonData.elements[rand];
+    let clue = "";
+    if (count === 0) { 
+      clue = "Block: " + elementData.block;
+    } else if (count === 1) {
+      clue = "Category: " + elementData.category;
+    } else if (count === 2) {
+      clue = "Period: " + elementData.period;
+    } else if (count >= 3) {
+      clue = "Discovered by: " + elementData.discovered_by;
+    }
+
+    if (clue) {
+      clues.push(clue);
+      document.getElementById("clues").innerHTML = clues.join("<br>");
+    }
+  }
+  revealClue(0);
+
+</script>   
