@@ -4,5 +4,5 @@
 <h3>Try it here: <a href="https://elementle.findmycode.org/">Elementle</a></h3>
 
 <h2>Version info</h2>
-<h3>Version 1.X - Lithium 🔋</h3>
-<p>The inital commit and first version of elementle</p>
+<h3>Version 2.X - Sodium 🧪</h3>
+<p>Periodic table and more interactivity was added to the platform</p>
