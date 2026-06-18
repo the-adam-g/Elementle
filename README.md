@@ -4,5 +4,5 @@
 <h3>Try it here: <a href="https://elementle.findmycode.org/">Elementle</a></h3>
 
 <h2>Version info</h2>
-<h3>Version 2.X - Sodium 🧪</h3>
-<p>Periodic table and more interactivity was added to the platform</p>
+<h3>Version 3.X - Seaborgium 🦭</h3>
+<p>Daily elementle and free play now available</p>
