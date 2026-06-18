@@ -6,6 +6,23 @@ h1, p, a, ul, li {
     color: white !important;
     text-shadow: 0 0 0.0vw currentColor;
 }
+.navbar {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #E5E7EB;
+  color: #000000 !important;
+  text-decoration: none;
+  background-color: #E5E7EB;
+  border-radius: 10px;
+  padding: 10px;
+  transition-duration: 0.5s;
+}
+.navbar:hover {
+  border: 1px solid #E5E7EB;
+  color: #000000;
+  background-color: #bab8b8;
+  transition-duration: 0.5s;
+}
 .element.clue-eliminated {
   opacity: 0.12;
   filter: grayscale(100%) brightness(0.3);
