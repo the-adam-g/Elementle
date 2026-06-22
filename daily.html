@@ -21,10 +21,6 @@
   <p id="demo"></p>
   <p><b>Clues:</b></p>
   <p id="clues"></p>
-  <p><b>Guessed elements:</b></p>
-  <ul>
-    <div id="tried"></div>
-  </ul>
   <input type="text" id="guessbox" placeholder="Enter element name">
   <button onclick="checkGuess(document.getElementById('guessbox').value)">Guess</button>
   <hr>
@@ -10964,26 +10960,29 @@
     const days = Math.floor(date.getTime() / 86400000);
     return (Math.abs(Math.floor(Math.sin(days) * 1000000)) % 118) + 1;
   }
-  const rand = dateToRandom118()
+
+  const rand = dateToRandom118();
   const answer = jsonData.elements[rand].name;
-  function checkGuess(userGuess) {   
+
+  function checkGuess(userGuess) {
     if (userGuess.toLowerCase() === answer.toLowerCase()) {
       alert("You win! The element was " + answer);
     } else {
       guesses = guesses + 1;
-      document.getElementById("guesses").innerHTML = guesses;
+      tried.push(userGuess.toLowerCase());
       revealClue(guesses);
-      tried.push("<li>" + userGuess + "</li>");
-      document.getElementById("tried").innerHTML = tried.join("");
+      document.getElementById("guesses").innerHTML = guesses;
+      applyBlackouts();
     }
   }
-
-  window.checkGuess = checkGuess; 
+  window.checkGuess = checkGuess;
   const elementMap = {};
   for (const el of jsonData.elements) {
     elementMap[el.number] = el;
   }
+
   const activeFilters = {};
+
   function applyBlackouts() {
     const allDivs = document.querySelectorAll('.element[data-element-num]');
     allDivs.forEach(div => {
@@ -10991,7 +10990,10 @@
       const elData = elementMap[num];
       if (!elData) return;
       let eliminated = false;
-      if (activeFilters.block !== undefined && elData.block !== activeFilters.block) {
+      if (tried.includes(elData.name.toLowerCase())) {
+        eliminated = true;
+      }
+      if (!eliminated && activeFilters.block !== undefined && elData.block !== activeFilters.block) {
         eliminated = true;
       }
       if (!eliminated && activeFilters.period !== undefined && elData.period !== activeFilters.period) {
@@ -11017,31 +11019,41 @@
   function revealClue(count) {
     const elementData = jsonData.elements[rand];
     let clue = "";
-    if (count === 1) { 
+    if (count === 1) {
       clue = "Block: " + elementData.block;
       activeFilters.block = elementData.block;
     } else if (count === 2) {
       clue = "Category: " + elementData.category;
       const catLower = (elementData.category || '').toLowerCase();
       let catKey = catLower;
-      if (catLower.includes('alkali metal') && !catLower.includes('alkaline')) catKey = 'alkali metal';
-      else if (catLower.includes('alkaline earth')) catKey = 'alkaline earth metal';
-      else if (catLower.includes('transition metal')) catKey = 'transition metal';
-      else if (catLower.includes('post-transition')) catKey = 'post-transition metal';
-      else if (catLower.includes('metalloid')) catKey = 'metalloid';
-      else if (catLower.includes('noble gas')) catKey = 'noble gas';
-      else if (catLower.includes('nonmetal')) catKey = 'nonmetal';
-      else if (catLower.includes('lanthanide')) catKey = 'lanthanide';
-      else if (catLower.includes('actinide')) catKey = 'actinide';
+      if (catLower.includes('alkali metal') && !catLower.includes('alkaline')) {
+        catKey = 'alkali metal';
+      } else if (catLower.includes('alkaline earth')) {
+        catKey = 'alkaline earth metal';
+      } else if (catLower.includes('transition metal')) {
+        catKey = 'transition metal';
+      } else if (catLower.includes('post-transition')) {
+        catKey = 'post-transition metal';
+      } else if (catLower.includes('metalloid')) {
+        catKey = 'metalloid';
+      } else if (catLower.includes('noble gas')) {
+        catKey = 'noble gas';
+      } else if (catLower.includes('nonmetal')) {
+        catKey = 'nonmetal';
+      } else if (catLower.includes('lanthanide')) {
+        catKey = 'lanthanide';
+      } else if (catLower.includes('actinide')) {
+        catKey = 'actinide';
+      }
       activeFilters.category = catKey;
     } else if (count === 3) {
       clue = "Period: " + elementData.period;
       activeFilters.period = elementData.period;
     } else if (count === 4) {
-      if (ionization_energies == "") {
+      if (elementData.ionization_energies == "") {
         clue = "No ionization energies";
       } else {
-        clue = "Ionization energies: " + element.ionization_energies;
+        clue = "Ionization energies: " + elementData.ionization_energies;
       }
     } else if (count === 5) {
       clue = "Boiling point: " + elementData.boil;
@@ -11051,13 +11063,10 @@
     } else if (count === 7) {
       clue = "Appearance: " + elementData.appearance;
     }
-    
     applyBlackouts();
-
     if (clue) {
       clues.push(clue);
       document.getElementById("clues").innerHTML = clues.join("<br>");
     }
   }
-
-</script>   
+</script>
